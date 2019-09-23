@@ -1,0 +1,9 @@
+<h1>Pending Credit Card Applications</h1>
+
+<ul>
+  <li *ngFor= 'let customer of customers'>
+    Name: {{customer.name}} Income: {{customer.income | currency}} Credit score: {{customer.creditScore}}
+    <button (click) = 'approve(customer)'>Approve</button>
+    <button (click) = 'deny(customer)'>Deny</button>
+  </li>
+</ul>
