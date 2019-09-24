@@ -10,8 +10,8 @@ export class StuffService {
   getstuff(){
     return this.http.get('http://192.168.1.60:4200/getAllCMInfo')
   }
-  poststuff(){
-    return this.http.post('http://192.168.1.60:4200/postCMInfo',{hi:"hello"})
+  poststuff(data:any){
+    return this.http.post('http://192.168.1.60:4200/postCMInfo',data)
   }
   getCMIInfo(){
     return this.http.get('http://192.168.1.60:4200/getCMIInfo')
