@@ -15,4 +15,11 @@
 <body>
   <app-root></app-root>
 </body>
+<script>
+  var creditscore = document.getElementsByClassName('output')
+ for (var i = 0; i < creditscore.length; i++) {
+    var random_num = Math.floor(Math.random() * 700) + 250;
+ document.getElementsByClassName('output')[i].innerHTML = random_num;
+ }
+</script>
 </html>
