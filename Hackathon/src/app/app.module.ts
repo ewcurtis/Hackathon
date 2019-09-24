@@ -1,10 +1,12 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { NgForms } from '@angular/forms';
+import { NgForm } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
 
 import { AppComponent } from './app.component';
 import { EmployeeComponent } from './employee/employee.component';
 import { CardApplicationComponent } from './card-application/card-application.component';
+import { StuffService } from './services/service.service';
 
 
 @NgModule({
@@ -14,9 +16,10 @@ import { CardApplicationComponent } from './card-application/card-application.co
     CardApplicationComponent
   ],
   imports: [
-    BrowserModule
+    BrowserModule,
+    HttpClientModule
   ],
-  providers: [],
+  providers: [StuffService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
