@@ -8,7 +8,7 @@ import { SaveData } from '../services/saveData';
 export class SaveDataService {
 
     constructor(private http: HttpClient) { }
-    saveDetails: SaveData
+    saveDetails: SaveData = new SaveData('','','','','','','','','','',)
     getData() {
         return this.saveDetails
     }
