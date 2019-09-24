@@ -16,6 +16,8 @@ export class CardApplication2Component implements OnInit {
   }
 userDetails = { fn:'', ln:'', address:'', city:'', state:'', zip:'', dob:'', email:'', ssn:'', income:'' }
   userInfo(user:NgForm) {
-    this.test.poststuff(user.value)
+    this.test.poststuff(user.value).subscribe((record)=>{
+      console.log(record)
+    })
   }
 }

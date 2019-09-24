@@ -30,7 +30,7 @@ import { CardApplication2Component } from './card-application2/card-application2
   imports: [
     BrowserModule,
 
-    HttpClientModule
+    HttpClientModule,
 
     AppRoutingModule,
     FormsModule
