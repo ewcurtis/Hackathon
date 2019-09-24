@@ -9,11 +9,13 @@ var MongoClient = mongodb.MongoClient
 var url = "mongodb://localhost:27017"
 var creditCardSystem
 var customerRelDB
+var creditScoreDb
 
 MongoClient.connect(url,(err , database) => {
     if( err) return console.log(err)
     creditCardSystem = database.db('CreditCardSystem')
     customerRelDB = database.db('CustomerRelationDB')
+    creditScoreDb = database.db('CreditScoreDb')
     console.log('Connected to database')
 })
 
@@ -34,16 +36,19 @@ app.get('/getCMInfo', (req, res)=>{
     creditCardSystem.collection('personalInfo').find(id).toArray(function(err, result){
         if (err) throw err;
         userID = req.body._id
-        console.log(userID)
+        console.log("getCMInfo is called!")
         res.status(200).send(result)
     })
 })
 app.post('/postCMInfo', (req, res)=>{
-    creditCardSystem.collection('personalInfo').insertOne(req.body, (err, result)=>{
+    var temp = req.body
+    temp.submission = "false"
+    temp.approval = ""
+    creditCardSystem.collection('personalInfo').insertOne(temp, (err, result)=>{
         if(err) {return console.log(err)}
 
         userID = result.ops[0]._id
-        console.log("userid: ", userID)
+        console.log("postCMInfo is called! userid: ", userID)
         res.send(userID)
     })
 })
@@ -54,7 +59,7 @@ app.put('/updateCMInfo', (req, res)=>{
     var newValue = { $set: temp}
     creditCardSystem.collection('personalInfo').updateOne(id,newValue,function(err, result){
         if (err) throw err;
-        console.log(result)
+        console.log("updateCMInfo is called!")
         res.send("successful update")
     })
 })
@@ -68,7 +73,7 @@ app.get('/getHousingInfo', (req, res)=>{
     customerRelDB.collection('housingInfo').findOne({user_id:id},function(err, result){
         if (err) throw err;
 
-        console.log(result)
+        console.log("getHousingInfo is called!")
         res.send(result)
     })
 })
@@ -76,7 +81,7 @@ app.post('/postHousingInfo', (req, res)=>{
     customerRelDB.collection('housingInfo').insertOne(req.body, (err, result)=>{
         if(err) {return console.log(err)}
 
-        console.log(result)
+        console.log("postHousingInfo is called")
         res.send('housing info saved')
     })
 })
@@ -86,7 +91,7 @@ app.put('/updateHousingInfo', (req, res)=>{
     var newValue = { $set: req.body}
     customerRelDB.collection('housingInfo').updateOne(id,newValue,function(err, result){
         if (err) throw err;
-        console.log(result)
+        console.log("updateHousingInfo")
         res.send("successful housing update")
     })
 })
@@ -100,7 +105,7 @@ app.get('/getEmploymentInfo', (req, res)=>{
     creditCardSystem.collection('employmentAndIncome').findOne({user_id:id},function(err, result){
         if (err) throw err;
 
-        console.log(result)
+        console.log("getEmploymentInfo is called")
         res.send(result)
     })
 })
@@ -110,7 +115,7 @@ app.post('/postEmploymentInfo', (req, res)=>{
     creditCardSystem.collection('employmentAndIncome').insertOne(req.body, (err, result)=>{
         if(err) {return console.log(err)}
 
-        console.log(result)
+        console.log("postEmploymentInfo is called!")
         res.send('employment info saved')
     })
 })
@@ -120,13 +125,21 @@ app.put('/updateEmploymentInfo', (req, res)=>{
     var newValue = { $set: temp}
     creditCardSystem.collection('employmentAndIncome').updateOne(id,newValue,function(err, result){
         if (err) throw err;
-        console.log(result)
+        console.log("updateEmploymentInfo is called!")
         res.send("successful employment update")
     })
 })
 
-app.get('/getCrediScore', (req, res)=>{
-    console.log('hi')
+app.get('/getCreditScore', (req, res)=>{
+    // user id
+    console.log("ssn: ",req.body.ssn)
+
+    creditScoreDb.collection('creditScore').findOne({ssn:req.body.ssn},function(err, result){
+        if (err) throw err;
+
+        console.log("getCreditScore is called!")
+        res.send(result)
+    })
 })
 
 // change submission status to submitted
@@ -135,7 +148,7 @@ app.post('/submitApplication', (req, res)=>{
     var status = { $set: {submission: "true"}}
     creditCardSystem.collection('personalInfo').updateOne(id,status,function(err, result){
         if (err) throw err;
-        console.log(result)
+        console.log("submitApplication is called!")
         res.send("successful submission")
     })
 })
@@ -155,7 +168,7 @@ app.get('/getAllCMInfo', (req, res)=>{
     ]).toArray(function(err, result){
         if (err) throw err;
 
-        console.log(result)
+        console.log("getAllCMInfo is called!")
         res.status(200).send(result)
     })
 })
@@ -166,7 +179,7 @@ app.post('/actOnApplication', (req, res)=>{
     var status = { $set: {approval: req.body.approval}}
     creditCardSystem.collection('personalInfo').updateOne(id,status,function(err, result){
         if (err) throw err;
-        console.log(result)
+        console.log("actOnApplication is called!")
         res.send("Approved!")
     })
 })
