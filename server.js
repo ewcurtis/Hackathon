@@ -4,6 +4,7 @@ var cors = require('cors')
 var mongodb = require('mongodb')
 
 var MongoClient = mongodb.MongoClient
+//192.168.1.27
 var url = "mongodb://localhost:27017"
 var creditCardSystem
 var customerRelDB
@@ -27,7 +28,6 @@ app.listen('4200', ()=>{
 
 
 app.get('/getCMInfo', (req, res)=>{
-    console.log('hi')
     creditCardSystem.collection('personalInfo').aggregate([
         {
             $lookup:
@@ -49,12 +49,27 @@ app.get('/getCMInfo', (req, res)=>{
 //     console.log('hi')
 // })
 
+// get housing info based on req's user id
 app.get('/getHousingInfo', (req, res)=>{
-    console.log('hi')
+    var id = new mongodb.ObjectID(req.body._id)
+
+    customerRelDB.collection('housingInfo').find(id).toArray(function(err, result){
+        if (err) throw err;
+
+        console.log(result)
+        res.send(result)
+    })
 })
 
 app.get('/getEmploymentInfo', (req, res)=>{
-    console.log('hi')
+    var id = new mongodb.ObjectID(req.body._id)
+
+    creditCardSystem.collection('employmentAndIncome').find(id).toArray(function(err, result){
+        if (err) throw err;
+
+        console.log(result)
+        res.send(result)
+    })
 })
 
 app.get('/getCrediScore', (req, res)=>{
