@@ -1,0 +1,55 @@
+<form (ngSubmit)="userInfo(f)" #f=ngForm>
+  <div class="form-row">
+    <div class="form-group col-2">
+      <label for="inputFirstName">First Name</label>
+      <input type="text" name="fn" class="form-control" [(ngModel)]="userDetails.fn" placeholder="First Name">
+    </div>
+    <div class="form-group col-2">
+      <label for="inputLastName">Last Name</label>
+      <input type="text" name="ln" class="form-control" [(ngModel)]="userDetails.ln" placeholder="Last Name">
+    </div>
+  </div>
+  <div class="form-row">
+    <div class="form-group col-3">
+      <label for="inputAddress">Address</label>
+      <input type="text" name="address" class="form-control" [(ngModel)]="userDetails.address" placeholder="1234 Main St">
+    </div>
+  </div>
+  <div class="form-row">
+    <div class="form-group col-md-2">
+      <label for="inputCity">City</label>
+      <input type="text" name="city" class="form-control" [(ngModel)]="userDetails.city" placeholder="Enter City">
+    </div>
+    <div class="form-group col-md-2">
+        <label for="inputCity">State</label>
+        <input type="text" name="state" class="form-control" [(ngModel)]="userDetails.state" placeholder="Enter State">
+      </div>
+  </div>
+  <div class="form-row">
+    <div class="form-group col-md-3">
+      <label for="inputZip">Zip</label>
+      <input type="text" name="zip" class="form-control" [(ngModel)]="userDetails.zip" placeholder="Enter zip">
+    </div>
+  </div>
+  <div class="form-row">
+    <div class="form-group col-2">
+      <label for="inputDob">Date of birth</label>
+      <input type="text" name="dob" class="form-control" [(ngModel)]="userDetails.dob" placeholder="mm/dd/yyyy">
+    </div>
+    <div class="form-group col-2">
+      <label for="inputEmail">Email</label>
+      <input type="email" name="email" class="form-control" [(ngModel)]="userDetails.email" placeholder="Enter email">
+    </div>
+  </div>
+  <div class="form-row">
+    <div class="form-group col-2">
+      <label for="inputSsn">Social Security Number</label>
+      <input type="text" name="ssn" class="form-control" [(ngModel)]="userDetails.ssn" placeholder="123-123-1234">
+    </div>
+    <div class="form-group col-2">
+      <label for="inputIncome">Total Gross Annual Income</label>
+      <input type="text" name="income" class="form-control" [(ngModel)]="userDetails.income" placeholder="Enter Income">
+    </div>
+  </div>
+  <button type="submit" class="btn btn-primary" style="float: left">Submit</button>
+</form>
