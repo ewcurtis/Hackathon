@@ -12,6 +12,7 @@ import { AppComponent } from './app.component';
 import { StatusComponent } from './status/status.component';
 import { CardApplicationComponent } from './card-application/card-application.component';
 import { StuffService } from './services/service.service';
+import { SaveDataService } from './services/savedataservice';
 
 import { EmployeeComponent } from './employee/employee.component';
 import { AppRoutingModule } from './app-routing.module';
@@ -36,7 +37,7 @@ import { CardApplication2Component } from './card-application2/card-application2
     FormsModule
 
   ],
-  providers: [StuffService],
+  providers: [StuffService, SaveDataService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
