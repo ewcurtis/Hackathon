@@ -9,14 +9,5 @@ import { StuffService } from './services/service.service';
 export class AppComponent {
   title = 'Hackathon';
 
-  constructor(private st: StuffService){
-    // st.getstuff().subscribe((record)=>{
-    //   console.log(record)
-    // })
-
-    st.poststuff().subscribe((record)=>{
-      console.log(record)
-      
-    })
-  }
+  constructor(private st: StuffService){}
 }
