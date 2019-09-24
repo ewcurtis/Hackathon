@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
+import { StuffService } from '../services/service.service';
+import { TestBed } from '@angular/core/testing';
 
 @Component({
   selector: 'app-card-application2',
@@ -8,12 +10,12 @@ import { NgForm } from '@angular/forms';
 })
 export class CardApplication2Component implements OnInit {
 
-  constructor() { }
+  constructor(private test:StuffService) { }
 
   ngOnInit() {
   }
 userDetails = { fn:'', ln:'', address:'', city:'', state:'', zip:'', dob:'', email:'', ssn:'', income:'' }
   userInfo(user:NgForm) {
-    console.log(user.value.fn)
+    this.test.poststuff(user.value)
   }
 }
