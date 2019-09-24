@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { StuffService } from '../services/service.service';
 
 @Component({
   selector: 'app-status',
@@ -7,9 +8,18 @@ import { Component, OnInit } from '@angular/core';
 })
 export class StatusComponent implements OnInit {
 
-  constructor() { }
+  statuses = [];
+
+  constructor(private ss: StuffService) { }
 
   ngOnInit() {
+    this.getStatus();
+  }
+
+  getStatus() {
+    this.ss.getstuff().subscribe((posts: any) => {
+      this.statuses = posts;
+    });
   }
 
 }
