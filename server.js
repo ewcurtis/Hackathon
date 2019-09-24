@@ -47,6 +47,17 @@ app.post('/postCMInfo', (req, res)=>{
         res.send(userID)
     })
 })
+app.put('/updateCMInfo', (req, res)=>{
+    var id = {_id: new mongodb.ObjectID(req.body.user_id)}
+    var temp = req.body
+    temp.user_id = id._id
+    var newValue = { $set: temp}
+    creditCardSystem.collection('personalInfo').updateOne(id,newValue,function(err, result){
+        if (err) throw err;
+        console.log(result)
+        res.send("successful update")
+    })
+})
 
 // get housing info based on req's user id
 app.get('/getHousingInfo', (req, res)=>{
@@ -67,6 +78,16 @@ app.post('/postHousingInfo', (req, res)=>{
 
         console.log(result)
         res.send('housing info saved')
+    })
+})
+app.put('/updateHousingInfo', (req, res)=>{
+    var id = {user_id: new mongodb.ObjectID(req.body.user_id)}
+    
+    var newValue = { $set: req.body}
+    customerRelDB.collection('housingInfo').updateOne(id,newValue,function(err, result){
+        if (err) throw err;
+        console.log(result)
+        res.send("successful housing update")
     })
 })
 
@@ -91,6 +112,16 @@ app.post('/postEmploymentInfo', (req, res)=>{
 
         console.log(result)
         res.send('employment info saved')
+    })
+})
+app.put('/updateEmploymentInfo', (req, res)=>{
+    var id = {user_id: new mongodb.ObjectID(req.body.user_id)}
+    
+    var newValue = { $set: temp}
+    creditCardSystem.collection('employmentAndIncome').updateOne(id,newValue,function(err, result){
+        if (err) throw err;
+        console.log(result)
+        res.send("successful employment update")
     })
 })
 
