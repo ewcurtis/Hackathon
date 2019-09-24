@@ -2,8 +2,10 @@ var express = require('express')
 var bp = require('body-parser')
 var cors = require('cors')
 var mongodb = require('mongodb')
+var userID;
 
 var MongoClient = mongodb.MongoClient
+//192.168.1.60
 var url = "mongodb://localhost:27017"
 var creditCardSystem
 var customerRelDB
@@ -25,9 +27,90 @@ app.listen('4200', ()=>{
 
 
 
-
+// get one person's data based on user id
 app.get('/getCMInfo', (req, res)=>{
+    
+    var id = new mongodb.ObjectID(req.body._id)
+    creditCardSystem.collection('personalInfo').find(id).toArray(function(err, result){
+        if (err) throw err;
+        userID = req.body._id
+        console.log(userID)
+        res.status(200).send(result)
+    })
+})
+app.post('/postCMInfo', (req, res)=>{
+    creditCardSystem.collection('personalInfo').insertOne(req.body, (err, result)=>{
+        if(err) {return console.log(err)}
+
+        userID = result.ops[0]._id
+        console.log("userid: ", userID)
+        res.send(userID)
+    })
+})
+
+// get housing info based on req's user id
+app.get('/getHousingInfo', (req, res)=>{
+    // user id
+    var id = new mongodb.ObjectID(req.body.user_id)
+    console.log(id)
+
+    customerRelDB.collection('housingInfo').findOne({user_id:id},function(err, result){
+        if (err) throw err;
+
+        console.log(result)
+        res.send(result)
+    })
+})
+app.post('/postHousingInfo', (req, res)=>{
+    customerRelDB.collection('housingInfo').insertOne(req.body, (err, result)=>{
+        if(err) {return console.log(err)}
+
+        console.log(result)
+        res.send('housing info saved')
+    })
+})
+
+// find corresponding data from user id
+app.get('/getEmploymentInfo', (req, res)=>{
+    // user id
+    var id = new mongodb.ObjectID(req.body.user_id)
+    console.log(id)
+
+    creditCardSystem.collection('employmentAndIncome').findOne({user_id:id},function(err, result){
+        if (err) throw err;
+
+        console.log(result)
+        res.send(result)
+    })
+})
+
+// req.body needs also to include user_id
+app.post('/postEmploymentInfo', (req, res)=>{
+    creditCardSystem.collection('employmentAndIncome').insertOne(req.body, (err, result)=>{
+        if(err) {return console.log(err)}
+
+        console.log(result)
+        res.send('employment info saved')
+    })
+})
+
+app.get('/getCrediScore', (req, res)=>{
     console.log('hi')
+})
+
+// change submission status to submitted
+app.post('/submitApplication', (req, res)=>{
+    var id = {_id: new mongodb.ObjectID(req.body.user_id)}
+    var status = { $set: {submission: "true"}}
+    creditCardSystem.collection('personalInfo').updateOne(id,status,function(err, result){
+        if (err) throw err;
+        console.log(result)
+        res.send("successful submission")
+    })
+})
+
+// get all info
+app.get('/getAllCMInfo', (req, res)=>{
     creditCardSystem.collection('personalInfo').aggregate([
         {
             $lookup:
@@ -45,26 +128,14 @@ app.get('/getCMInfo', (req, res)=>{
         res.status(200).send(result)
     })
 })
-// app.post('/postCMInfo', (req, res)=>{
-//     console.log('hi')
-// })
 
-app.get('/getHousingInfo', (req, res)=>{
-    console.log('hi')
-})
 
-app.get('/getEmploymentInfo', (req, res)=>{
-    console.log('hi')
-})
-
-app.get('/getCrediScore', (req, res)=>{
-    console.log('hi')
-})
-
-app.get('/submitApplication', (req, res)=>{
-    console.log('hi')
-})
-
-app.get('/actOnApplication', (req, res)=>{
-    console.log('hi')
+app.post('/actOnApplication', (req, res)=>{
+    var id = {_id: new mongodb.ObjectID(req.body.user_id)}
+    var status = { $set: {approval: req.body.approval}}
+    creditCardSystem.collection('personalInfo').updateOne(id,status,function(err, result){
+        if (err) throw err;
+        console.log(result)
+        res.send("Approved!")
+    })
 })
