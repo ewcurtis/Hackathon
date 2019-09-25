@@ -16,7 +16,7 @@ const routes: Routes = [
   { path: 'userForm', component: CardApplication2Component },
   { path: 'actOnApplication', component: EmployeeComponent },
 
-  { path: 'status', component: StatusComponent }
+  { path: 'status', component: StatusComponent },
 
   { path: 'pending', component: PendingComponent }
 
