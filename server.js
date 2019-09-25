@@ -43,7 +43,7 @@ app.get('/getCMInfo', (req, res)=>{
 app.post('/postCMInfo', (req, res)=>{
     var temp = req.body
     temp.submission = "false"
-    temp.approval = ""
+    temp.approval = "pending"
     creditCardSystem.collection('personalInfo').insertOne(temp, (err, result)=>{
         if(err) {return console.log(err)}
 
@@ -175,7 +175,7 @@ app.get('/getAllCMInfo', (req, res)=>{
 
 
 app.post('/actOnApplication', (req, res)=>{
-    var id = {_id: new mongodb.ObjectID(req.body.user_id)}
+    var id = {_id: new mongodb.ObjectID(req.body._id)}
     var status = { $set: {approval: req.body.approval}}
     creditCardSystem.collection('personalInfo').updateOne(id,status,function(err, result){
         if (err) throw err;
