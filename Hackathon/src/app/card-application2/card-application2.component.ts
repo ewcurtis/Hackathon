@@ -33,6 +33,8 @@ export class CardApplication2Component implements OnInit {
     this.test.poststuff(user.value).subscribe((record) => {
       console.log(record)
       this.router.navigate(['/home']);
+      this.userDetails = new SaveData('', '', '', '', '', '', '', '', '', '')
+      this.saveDetails();
     })
   }
 }
