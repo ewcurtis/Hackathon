@@ -18,7 +18,7 @@ export class CardApplication2Component implements OnInit {
   ngOnInit() {
     this.getDetails()
   }
-  userDetails: SaveData = new SaveData('', '', '', '', '', '', '', '', '', '')
+  userDetails: SaveData = new SaveData('', '', '', '', '', '', '', '', '', '', Math.floor(Math.random() * 700) + 250)
 
   getDetails() {
     this.userDetails = this.test2.getData()
@@ -32,7 +32,9 @@ export class CardApplication2Component implements OnInit {
   userInfo(user: NgForm) {
     this.test.poststuff(user.value).subscribe((record) => {
       console.log(record)
-      this.router.navigate(['/home']);
+      this.router.navigate(['/pending']);
+      this.userDetails = new SaveData('', '', '', '', '', '', '', '', '', '', Math.floor(Math.random() * 700) + 250)
+      this.saveDetails();
     })
   }
 }

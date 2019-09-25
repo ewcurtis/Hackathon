@@ -5,11 +5,21 @@ import { CardApplicationComponent } from './card-application/card-application.co
 import { CardApplication2Component } from './card-application2/card-application2.component';
 import { EmployeeComponent } from './employee/employee.component';
 
+import { StatusComponent } from './status/status.component';
+
+import { PendingComponent } from './pending/pending.component';
+
+
 const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full'},
   { path: 'home', component: CardApplicationComponent },
   { path: 'userForm', component: CardApplication2Component },
-  { path: 'actOnApplication', component: EmployeeComponent }
+  { path: 'actOnApplication', component: EmployeeComponent },
+
+  { path: 'status', component: StatusComponent }
+
+  { path: 'pending', component: PendingComponent }
+
 ];
 
 @NgModule({

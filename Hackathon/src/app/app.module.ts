@@ -17,6 +17,7 @@ import { SaveDataService } from './services/savedataservice';
 import { EmployeeComponent } from './employee/employee.component';
 import { AppRoutingModule } from './app-routing.module';
 import { CardApplication2Component } from './card-application2/card-application2.component';
+import { PendingComponent } from './pending/pending.component';
 
 
 
@@ -26,7 +27,8 @@ import { CardApplication2Component } from './card-application2/card-application2
     StatusComponent,
     EmployeeComponent,
     CardApplicationComponent,
-    CardApplication2Component
+    CardApplication2Component,
+    PendingComponent
   ],
   imports: [
     BrowserModule,
