@@ -3,10 +3,10 @@
 <ul style = 'list-style-type: none; text-align:center;'>
   <li *ngFor= 'let customer of ex'>
     <div *ngIf = "customer.approval == 'pending'">
-      <div class = 'font'>
-   Name: {{customer.fn}} {{customer.ln}} <br />Income: {{customer.income}} <br />Credit score: <p class='output'></p> <br />
+      <span class = 'font;'>
+   Name: {{customer.fn}} {{customer.ln}} <br />Income: {{customer.income}} <br />Credit score: {{random_num}} <br />
     <button (click) = 'approve(customer)' class = 'btn btn-primary'>Approve</button>
-    <button (click) = 'deny(customer)' class = 'btn btn-danger'>Deny</button></div></div>
+    <button (click) = 'deny(customer)' class = 'btn btn-danger'>Deny</button></span></div>
   </li><br />
 </ul>
 

@@ -11,7 +11,7 @@ export class EmployeeComponent implements OnInit {
 
   customers: PendingApp[] = [new PendingApp('Evan Curtis', 30250, 750),
   new PendingApp('Joe Smoe', 30250, 200)];
-  status="pending "
+  status="pending ";
   ex = [];
   constructor(private ss: StuffService) { }
 
@@ -23,18 +23,17 @@ export class EmployeeComponent implements OnInit {
     return this.customers;
   }
 
+
+  random_num = Math.floor(Math.random() * 700) + 250;
+  
   lol() {
     this.ss.getstuff().subscribe((posts: any[]) => {
       this.ex = posts;
-      // console.log(this.ex);
+       console.log(this.ex);
       // console.log(this.ex[0]['employment and income'][0].income);
     });
    // console.log(this.ex[0]['employment and income'][0].income);
-    for (let e of this.ex) {
-      let random_num = Math.floor(Math.random() * 850) + 200;
-      let creditScore = {creditScore: random_num};
-      e.push(creditScore);
-    }
+    
     //console.log(this.ex);
   }
 
