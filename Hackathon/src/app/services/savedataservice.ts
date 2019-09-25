@@ -8,7 +8,7 @@ import { SaveData } from '../services/saveData';
 export class SaveDataService {
 
     constructor(private http: HttpClient) { }
-    saveDetails: SaveData = new SaveData('','','','','','','','','','',)
+    saveDetails: SaveData = new SaveData('','','','','','','','','','', Math.floor(Math.random() * 700) + 250)
     getData() {
         return this.saveDetails
     }
