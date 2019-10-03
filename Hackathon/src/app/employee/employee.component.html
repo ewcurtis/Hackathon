@@ -4,7 +4,7 @@
   <li *ngFor= 'let customer of ex'>
     <div *ngIf = "customer.approval == 'pending'">
       <span class = 'font;'>
-   Name: {{customer.fn}} {{customer.ln}} <br />Income: {{customer.income}} <br />Credit score: {{random_num}} <br />
+   Name: {{customer.fn}} {{customer.ln}} <br />Income: {{customer.income}} <br />Credit score: {{customer.creditScore}} <br />
     <button (click) = 'approve(customer)' class = 'btn btn-primary'>Approve</button>
     <button (click) = 'deny(customer)' class = 'btn btn-danger'>Deny</button></span></div>
   </li><br />

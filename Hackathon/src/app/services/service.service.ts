@@ -8,10 +8,11 @@ export class StuffService {
 
   constructor(private http: HttpClient) { }
 
-  getstuff(){
-    return this.http.get('http://192.168.1.60:4200/getAllCMInfo').pipe(map(responseData => {
+  getstuff() {
+    return this.http.get('http://localhost:6969/getAllCMInfo').pipe(map(responseData => {
+      console.log('connecting...');
       const postArray: any[] = [];
-      for (const key in  responseData) {
+      for (const key in responseData) {
           if (responseData.hasOwnProperty(key)) {
               postArray.push({ ...responseData[key], id: key});
           }
@@ -19,29 +20,11 @@ export class StuffService {
       return postArray;
   }));
   }
-  poststuff(data:any){
-    return this.http.post('http://192.168.1.60:4200/postCMInfo',data)
+  poststuff(data: any) {
+    return this.http.post('http://localhost:6969/postCMInfo', data);
   }
-  getCMIInfo(){
-    return this.http.get('http://192.168.1.60:4200/getCMIInfo')
-  }
-  postCMIInfo(){
-    return this.http.post('http://192.168.1.60:4200/postCMInfo',{hi:"hello"})
-}
-  getHousingInfo(){
-  return this.http.get('http://192.168.1.60:4200/getHousingInfo')
-}
-  postHousingInfo(){
-    return this.http.post('http://192.168.1.60:4200/postHousingInfo',{hi:"hello"})
-}
-  getEmploymentInfo(){
-  return this.http.get('http://192.168.1.60:4200/getEmploymentInfo')
-}
-  postEmploymentInfo(){
-  return this.http.post('http://192.168.1.60:4200/postEmploymentInfo',{hi:"hello"})
-}
   postActOnApplication(data) {
-    console.log(data)
-    return this.http.post('http://192.168.1.60:4200/actOnApplication', data);
+    console.log(data);
+    return this.http.post('http://localhost:6969/actOnApplication', data);
   }
 }

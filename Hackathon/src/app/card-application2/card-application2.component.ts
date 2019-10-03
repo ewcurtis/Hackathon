@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { StuffService } from '../services/service.service';
 import { SaveDataService } from '../services/savedataservice';
+import { StatusService } from '../services/status.service';
 import { TestBed } from '@angular/core/testing';
 import { SaveData } from '../services/saveData';
 import {Router} from '@angular/router';
@@ -13,28 +14,33 @@ import {Router} from '@angular/router';
 })
 export class CardApplication2Component implements OnInit {
 
-  constructor(private test: StuffService, private test2: SaveDataService, private router: Router) { }
+  constructor(private test: StuffService, private test2: SaveDataService, private ss: StatusService, private router: Router) { }
+
 
   ngOnInit() {
-    this.getDetails()
+    this.getDetails();
   }
-  userDetails: SaveData = new SaveData('', '', '', '', '', '', '', '', '', '', Math.floor(Math.random() * 700) + 250)
+  userDetails: SaveData = new SaveData('', '', '', '', '', '', '', '', '', '');
 
   getDetails() {
-    this.userDetails = this.test2.getData()
+    this.userDetails = this.test2.getData();
   }
 
   saveDetails() {
-    this.test2.saveData(this.userDetails)
-    console.log(this.test2)
+    this.test2.saveData(this.userDetails);
+    console.log(this.test2);
   }
 
-  userInfo(user: NgForm) {
-    this.test.poststuff(user.value).subscribe((record) => {
-      console.log(record)
-      this.router.navigate(['/pending']);
-      this.userDetails = new SaveData('', '', '', '', '', '', '', '', '', '', Math.floor(Math.random() * 700) + 250)
-      this.saveDetails();
-    })
-  }
+  async userInfo(user: NgForm) {
+    this.ss.setSsn(user.controls['ssn'].value);
+    console.log(this.ss.getSsn());
+    await new Promise(resolve => {
+       this.test.poststuff(user.value).toPromise()
+        .then((value) => {
+      console.log(value);
+      resolve(value);
+  }); // end promise
+  });
+    this.router.navigate(['/pending']);
+}
 }
